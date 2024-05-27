@@ -61,7 +61,7 @@ router.get('/patient-dashboard', isAuth, isPatient, async (req, res) => {
 
 router.post('/book-appointment', isAuth, isPatient, async (req, res) => {
     try {
-        console.log(req.user);
+        // console.log(req.user);
         const { patient, doctor, date, time, status } = req.body
         const getPatient = await Patient.findById(patient);
         if (!getPatient) {

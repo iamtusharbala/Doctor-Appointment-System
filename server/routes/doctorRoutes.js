@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const Doctor = require('../models/doctor')
+const Appointment = require('../models/appointment')
 const passwordHasher = require('../utils/password')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
@@ -51,7 +52,27 @@ router.post('/login', async (req, res) => {
 })
 
 router.get('/doctor-dashboard', isAuth, isDoctor, async (req, res) => {
-    res.send('Protected Routes')
+    try {
+        res.send('Protected Routes')
+    } catch (error) {
+        console.error(error);
+    }
+})
+
+router.get('/get-appointments/:id', isAuth, isDoctor, async (req, res) => {
+    try {
+        const { id } = req.params
+        const appointment = await Appointment.find({ doctor: id })
+            .populate('patient', 'name place email gender phoneNumber')
+            .populate('doctor', 'firstName lastName email department')
+            .exec();
+        if (!appointment) {
+            return res.status(404).json({ error: 'Appointments not found' });
+        }
+        return res.status(200).json({ message: 'All appoinments fetched successfully', appointment })
+    } catch (error) {
+        console.error(error);
+    }
 })
 
 
