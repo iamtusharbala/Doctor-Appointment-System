@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
 const isAuth = require('../middlewares/isAuth')
+const isDoctor = require('../middlewares/isDoctor')
 
 router.post('/register', async (req, res) => {
     try {
@@ -41,12 +42,16 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ message: 'Incorrect password' })
 
         }
-        const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
+        const token = jwt.sign({ _id: doctor._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
         res.setHeader('Authorization', `Bearer ${token}`)
         return res.status(200).json({ message: 'Doctor logged in successfully', doctor, token })
     } catch (error) {
         console.error('Error while login Doctor');
     }
+})
+
+router.get('/doctor-dashboard', isAuth, isDoctor, async (req, res) => {
+    res.send('Protected Routes')
 })
 
 
