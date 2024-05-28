@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-const BookAppointment = () => {
+const BookAppointment = ({ userId }) => {
     const [departmentList, setDepartmentList] = useState([])
     const [doctorList, setDoctorList] = useState([])
     const [selectedDepartment, setSelectedDepartment] = useState('')
     const [formData, setFormdata] = useState({
-        patient: '',//set this to current user._id
+        patient: userId,//set this to current user._id
         doctor: '',
         date: '',
         time: '',
@@ -71,9 +71,9 @@ const BookAppointment = () => {
                         </div>
                         <div className="input-group mb-3">
                             <label className="input-group-text" htmlFor="doctor">Doctor</label>
-                            <select className="form-select" id="doctor" name="doctor" onChange={handleForm} value={formData.doctor._id}>
-                                <option>Choose Doctor</option>
-                                {doctorList && (doctorList.map((doctor) => <option key={doctor._id} >{doctor.firstName + " " + doctor.lastName}</option>))}
+                            <select className="form-select" id="doctor" name="doctor" onChange={handleForm} value={formData.doctor}>
+                                <option value=''>Choose Doctor</option>
+                                {doctorList && (doctorList.map((doctor) => <option key={doctor._id} value={doctor._id}>{doctor.firstName + " " + doctor.lastName}</option>))}
                             </select>
                         </div>
                         <div className="mb-3">
