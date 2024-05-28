@@ -1,6 +1,9 @@
 import React from 'react'
 
-const AppointmentCard = ({ doctor, department, time, date, status }) => {
+const AppointmentCard = ({ id, doctor, department, time, date, status, onDelete }) => {
+    const deleteAppointment = async () => {
+        await onDelete(id);
+    }
     return (
         <div>
             <div className="card mb-3">
@@ -11,7 +14,7 @@ const AppointmentCard = ({ doctor, department, time, date, status }) => {
                     <p className="card-text"><small className="text-body-secondary">Date: {date}</small></p>
                     <p className="card-text"><small className="text-body-secondary">Status: {status}</small></p>
                     <a href="#" className="btn btn-primary">Edit Appointment</a>
-                    <a href="#" className="btn btn-danger">Delete Appointment</a>
+                    <a href="#" className="btn btn-danger" onClick={deleteAppointment}>Delete Appointment</a>
                 </div>
             </div>
         </div>

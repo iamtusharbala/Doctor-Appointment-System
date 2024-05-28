@@ -116,4 +116,18 @@ router.get('/get-appointment/:id', isAuth, isPatient, async (req, res) => {
     }
 })
 
+// Delete on appointment
+router.get('/delete-appointment/:id', isAuth, isPatient, async (req, res) => {
+    try {
+        const { id } = req.params
+        const response = await Appointment.findByIdAndDelete(id)
+        if (!response) {
+            return res.status(404).json({ error: 'Appointment not found' });
+        }
+        return res.status(200).json({ message: 'Appointment deleted successfully' })
+    } catch (error) {
+        console.error('Error while deleting appointments', error);
+    }
+})
+
 module.exports = router
