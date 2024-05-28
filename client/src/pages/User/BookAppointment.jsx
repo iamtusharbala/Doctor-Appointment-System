@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const BookAppointment = ({ userId }) => {
+    const navigate = useNavigate()
     const [departmentList, setDepartmentList] = useState([])
     const [doctorList, setDoctorList] = useState([])
     const [selectedDepartment, setSelectedDepartment] = useState('')
@@ -51,9 +53,19 @@ const BookAppointment = ({ userId }) => {
         setFormdata({ ...formData, [name]: value })
     }
 
-    const submitform = (e) => {
+
+    // Create new appointment
+    const submitform = async (e) => {
         e.preventDefault()
         console.log(formData);
+        try {
+            const response = await axios.post('http://localhost:3000/api/v1/patient/book-appointment', formData)
+            if (response.data.message === 'New appointment created successfully') {
+                navigate('/')
+            }
+        } catch (error) {
+            console.error('Error fetching doctors', error);
+        }
     }
 
     return (

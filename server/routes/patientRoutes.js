@@ -93,7 +93,7 @@ router.post('/book-appointment', isAuth, isPatient, async (req, res) => {
         })
 
         await newAppointment.save()
-        return res.status(201).json({ message: 'New patient record created successfully', appointment: newAppointment })
+        return res.status(201).json({ message: 'New appointment created successfully', appointment: newAppointment })
     } catch (error) {
         console.error('Error while booking appointment', err);
     }

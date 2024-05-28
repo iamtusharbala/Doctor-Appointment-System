@@ -1,7 +1,14 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import AuthContext from '../../context/AuthContext'
 
 const NavBar = () => {
+    const navigate = useNavigate()
+    const authContext = useContext(AuthContext)
+    const logout = () => {
+        authContext.logout(null, null);
+        navigate('/login')
+    }
     return (
         <nav className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
             <div className="container-fluid">
@@ -23,6 +30,7 @@ const NavBar = () => {
                         <li className="nav-item">
                             <Link className="nav-link" to='/get-appointment'>Get Appointments</Link>
                         </li>
+                        <button className='btn btn-primary' onClick={logout}>Logout</button>
                     </ul>
                 </div>
             </div>
