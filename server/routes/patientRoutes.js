@@ -59,6 +59,20 @@ router.get('/patient-dashboard', isAuth, isPatient, async (req, res) => {
 })
 
 
+router.get('/get-doctors', async (req, res) => {
+    try {
+        const doctor = await Doctor.find();
+        if (!doctor) {
+            return res.status(404).json({ error: 'Doctors not found' });
+        }
+
+        return res.status(200).json({ message: 'All doctors fetched successfully', doctor })
+    } catch (error) {
+        console.error('Error while booking appointment', error);
+    }
+})
+
+
 router.post('/book-appointment', isAuth, isPatient, async (req, res) => {
     try {
         // console.log(req.user);
