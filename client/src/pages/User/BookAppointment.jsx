@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
-const BookAppointment = ({ userId }) => {
+const BookAppointment = ({ userId, token }) => {
     const navigate = useNavigate()
     const [departmentList, setDepartmentList] = useState([])
     const [doctorList, setDoctorList] = useState([])
@@ -20,6 +20,7 @@ const BookAppointment = ({ userId }) => {
     }, [])
 
     const getDepartment = async () => {
+        console.log(token);
         const response = await axios.get('http://localhost:3000/api/v1/patient/get-doctors');
         setDepartmentList(response.data.doctor);
     }
@@ -59,7 +60,11 @@ const BookAppointment = ({ userId }) => {
         e.preventDefault()
         console.log(formData);
         try {
-            const response = await axios.post('http://localhost:3000/api/v1/patient/book-appointment', formData)
+            const response = await axios.post('http://localhost:3000/api/v1/patient/book-appointment', formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             if (response.data.message === 'New appointment created successfully') {
                 navigate('/')
             }

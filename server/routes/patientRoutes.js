@@ -110,7 +110,7 @@ router.get('/get-appointment/:id', isAuth, isPatient, async (req, res) => {
         if (!appointment) {
             return res.status(404).json({ error: 'Appointments not found' });
         }
-        return res.status(200).json({ message: 'All appoinments fetched successfully', appointment })
+        return res.status(200).json({ message: 'All appointments fetched successfully', appointment })
     } catch (error) {
         console.error('Error while fetching appointments', error);
     }

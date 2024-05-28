@@ -47,8 +47,8 @@ const App = () => {
         <Routes>
           <Route path='/' element={<AuthRoute><HomePage /></AuthRoute>} />
           <Route path='/login' element={<Login />} />
-          <Route path='/book-appointment' element={<AuthRoute> {userLoggedIn.userId && <BookAppointment userId={userLoggedIn.userId} />}</AuthRoute>} />
-          <Route path='/get-appointment' element={<AuthRoute><GetAppointments /></AuthRoute>} />
+          <Route path='/book-appointment' element={<AuthRoute> {(userLoggedIn.userId && userLoggedIn.token) && <BookAppointment userId={userLoggedIn.userId} token={userLoggedIn.token} />}</AuthRoute>} />
+          <Route path='/get-appointment' element={<AuthRoute>{(userLoggedIn.userId && userLoggedIn.token) && <GetAppointments userId={userLoggedIn.userId} token={userLoggedIn.token} />}</AuthRoute>} />
           <Route path='/profile' element={<AuthRoute><UserProfile /></AuthRoute>} />
           <Route path='/doctor-dashboard' element={<AuthRoute><Dashboard /></AuthRoute>} />
         </Routes>
