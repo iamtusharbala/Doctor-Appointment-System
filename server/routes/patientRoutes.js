@@ -117,7 +117,7 @@ router.get('/get-appointment/:id', isAuth, isPatient, async (req, res) => {
 })
 
 // Delete on appointment
-router.get('/delete-appointment/:id', isAuth, isPatient, async (req, res) => {
+router.delete('/delete-appointment/:id', isAuth, isPatient, async (req, res) => {
     try {
         const { id } = req.params
         const response = await Appointment.findByIdAndDelete(id)
