@@ -99,7 +99,7 @@ router.post('/book-appointment', isAuth, isPatient, async (req, res) => {
     }
 })
 
-
+// Get all appointments of one patient
 router.get('/get-appointment/:id', isAuth, isPatient, async (req, res) => {
     try {
         const { id } = req.params
@@ -116,7 +116,23 @@ router.get('/get-appointment/:id', isAuth, isPatient, async (req, res) => {
     }
 })
 
-// Delete on appointment
+
+// Get one appointment
+router.get('/appointment/:id', isAuth, isPatient, async (req, res) => {
+    try {
+        const { id } = req.params
+        const response = await Appointment.findById(id)
+        if (!response) {
+            return res.status(404).json({ error: 'Appointment not found' });
+        }
+        return res.status(200).json({ message: 'Appointment fetched successfully', response })
+    } catch (error) {
+        console.error('Error while Fetching appointments', error);
+    }
+})
+
+
+// Delete one appointment
 router.delete('/delete-appointment/:id', isAuth, isPatient, async (req, res) => {
     try {
         const { id } = req.params
