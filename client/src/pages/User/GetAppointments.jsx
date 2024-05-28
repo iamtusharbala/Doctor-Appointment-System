@@ -38,7 +38,7 @@ const GetAppointments = ({ userId, token }) => {
 
     return (
         <div className='container mt-5'>
-            {appointments && appointments.map((appt) => <AppointmentCard key={appt._id} id={userId} doctor={appt.doctor.firstName + " " + appt.doctor.lastName} department={appt.doctor.department} time={appt.time} date={appt.date} status={appt.status} onDelete={deleteAppointment} />)}
+            {appointments && appointments.map((appointment) => <AppointmentCard key={appointment._id} id={appointment._id} doctor={appointment.doctor.firstName + " " + appointment.doctor.lastName} department={appointment.doctor.department} time={appointment.time} date={appointment.date} status={appointment.status} onDelete={deleteAppointment} />)}
         </div>
     )
 }
