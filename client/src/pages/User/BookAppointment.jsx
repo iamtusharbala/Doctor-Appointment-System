@@ -20,7 +20,7 @@ const BookAppointment = ({ userId, token }) => {
     }, [])
 
     const getDepartment = async () => {
-        console.log(token);
+        // console.log(token);
         const response = await axios.get('http://localhost:3000/api/v1/patient/get-doctors');
         setDepartmentList(response.data.doctor);
     }

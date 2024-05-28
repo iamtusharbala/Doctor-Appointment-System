@@ -16,8 +16,8 @@ const GetAppointments = ({ userId, token }) => {
                 Authorization: `Bearer ${token}`
             }
         });
-        setAppointments(response.data);
-        console.log(response.data);
+        setAppointments(response.data.appointment)
+        // console.log(response.data.appointment)
     }
     return (
         <div>GetAppointments</div>
